@@ -204,6 +204,17 @@ select.form-control{cursor:pointer}
             <a href="users.php" class="nav-item <?= $currentPage==='users'?'active':'' ?>">
                 <i class="icon fas fa-users"></i> Хэрэглэгчид
             </a>
+            <!-- _layout.php-д доорх хэсгийг нэм -->
+<!-- "Борлуулалт" nav-group дотор Orders, Users-ийн өмнө эсвэл дараа нэм: -->
+
+<a href="reports.php" class="nav-item <?= $currentPage==='reports'?'active':'' ?>">
+    <i class="icon fas fa-chart-bar"></i> Тайлан & Шинжилгээ
+</a>
+
+<!-- Мөн "Систем" бүлэгт export холбоос нэм: -->
+<a href="export_excel.php?sheet=full" class="nav-item">
+    <i class="icon fas fa-file-excel" style="color:#217346"></i> Excel гаргах
+</a>
         </div>
         <div class="nav-group">
             <div class="nav-label">Систем</div>

@@ -1,5 +1,4 @@
 <?php
-
 date_default_timezone_set('Asia/Ulaanbaatar');
 define('SITE_NAME',    'ShopMN');
 define('SITE_URL',     'http://localhost/ecommerce');
