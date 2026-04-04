@@ -479,11 +479,9 @@ include 'includes/header.php';
     </p>
 </div>
 
-</div><!-- /co-grid -->
-</form><!-- /co-form  ★ form энд хаагдана ★ -->
+</div>
+</form>
 
-<!-- ═══ QR MODAL — form-ын ГАДНА, гэхдээ confirmPayment() нь
-         form-д байгаа hidden input ашиглан submit хийнэ ═══ -->
 <div class="qr-overlay" id="qr-modal">
     <div class="qr-box">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
@@ -576,9 +574,9 @@ include 'includes/header.php';
 <script>
 const QR_METHODS = ['qpay','socialpay','monpay','khanpay','most_money'];
 let qrTimer      = null;
-let qrConfirmed  = false;   // ★ энэ флаг submit loop-г зогсооно
+let qrConfirmed  = false;   //  энэ флаг submit loop-г зогсооно
 
-/* ── Хүргэлтийн арга ── */
+/* Хүргэлтийн арга */
 function pickDel(type, el) {
     document.querySelectorAll('.dopt').forEach(o => o.classList.remove('sel'));
     el.classList.add('sel');
@@ -591,7 +589,7 @@ function pickDel(type, el) {
         (<?= $subtotal ?> + c).toLocaleString() + '₮';
 }
 
-/* ── Төлбөрийн арга ── */
+/*  Төлбөрийн арга */
 function pickPay(method, el) {
     document.querySelectorAll('.pcard').forEach(c => c.classList.remove('sel'));
     el.classList.add('sel');
@@ -615,7 +613,7 @@ function pickPay(method, el) {
     }
 }
 
-/* ── QR Modal нээх ── */
+/* QR Modal нээх */
 function openQR(method) {
     const info = {
         qpay: { emoji:'🟦', title:'QPay' },
@@ -646,14 +644,14 @@ function closeQR() {
     qrTimer = null;
 }
 
-/* ── "Төлбөр болсон" — флаг тавиад form submit ── */
+/* "Төлбөр болсон" — флаг тавиад form submit */
 function confirmPayment() {
     closeQR();
-    qrConfirmed = true;            // ★ флаг асаана → submit listener блоклохгүй болно
+    qrConfirmed = true;            // флаг асаана → submit listener блоклохгүй болно
     document.getElementById('co-form').submit();
 }
 
-/* ── Form submit listener ── */
+/* Form submit listener */
 document.getElementById('co-form').addEventListener('submit', function(e) {
     const method = document.getElementById('h-payment').value;
 
@@ -667,7 +665,7 @@ document.getElementById('co-form').addEventListener('submit', function(e) {
     // QR + qrConfirmed=true  → шууд submit → PHP-д place_order=1 ирнэ
 });
 
-/* ── Купон ── */
+/* Купон */
 function applyCoupon() {
     const code = document.getElementById('coupon-inp')?.value.trim().toUpperCase();
     if (!code) return;

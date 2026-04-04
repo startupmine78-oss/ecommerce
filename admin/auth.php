@@ -1,5 +1,4 @@
 <?php
-// admin/auth.php — Admin хандах эрхийн шалгалт
 require_once __DIR__ . '/../db.php';
 
 function requireAdmin() {
@@ -21,7 +20,6 @@ function getCurrentAdmin() {
     return $_SESSION['admin_name'] ?? 'Admin';
 }
 
-// Quick stats helper
 function getStats($conn) {
     return [
         'products'   => mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) c FROM products"))['c'],

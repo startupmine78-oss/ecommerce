@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../db.php';
 
-// Default admin: admin / admin123 — өөрчлөхийг зөвлөж байна!
 $ADMIN_USER = 'admin';
 $ADMIN_PASS = 'admin123';
 

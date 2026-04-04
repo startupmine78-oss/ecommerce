@@ -1,6 +1,4 @@
 <?php
-// auth/MailService.php — Gmail SMTP + PHPMailer OTP илгээгч
-// Composer шаардлагатай: composer require phpmailer/phpmailer
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -11,13 +9,13 @@ require_once __DIR__ . '/../config/config.php';
 
 class MailService
 {
-    // ───────── OTP Үүсгэх ─────────
+    //  OTP Үүсгэх 
     public static function generateOTP(): string
     {
         return str_pad((string)random_int(0, 999999), 6, '0', STR_PAD_LEFT);
     }
 
-    // ───────── OTP Хадгалах ─────────
+    //  OTP Хадгалах 
     public static function saveOTP(mysqli $conn, string $email, string $code, string $purpose = 'login'): bool
     {
         $email   = mysqli_real_escape_string($conn, $email);
@@ -33,7 +31,7 @@ class MailService
         return $result !== false;
     }
 
-    // ───────── OTP Шалгах ─────────
+    //  OTP Шалгах 
     public static function verifyOTP(mysqli $conn, string $email, string $code, string $purpose = 'login'): array
     {
         $email = mysqli_real_escape_string($conn, $email);
@@ -65,7 +63,7 @@ class MailService
         return ['success' => true];
     }
 
-    // ───────── OTP Имэйл Илгээх ─────────
+    //  OTP Имэйл Илгээх 
     public static function sendOTP(string $email, string $code, string $purpose = 'login'): array
     {
         $purposeLabel = match($purpose) {
@@ -80,7 +78,7 @@ class MailService
         return self::sendMail($email, $subject, $html);
     }
 
-    // ───────── PHPMailer ашиглан илгээх ─────────
+    //  PHPMailer ашиглан илгээх 
     public static function sendMail(string $to, string $subject, string $html): array
     {
         try {
@@ -113,7 +111,7 @@ class MailService
         }
     }
 
-    // ───────── HTML Template ─────────
+    //  HTML Template 
     private static function buildOTPEmail(string $code, string $purpose, int $minutes): string
     {
         $digits = str_split($code);

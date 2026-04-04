@@ -1,7 +1,4 @@
 <?php
-/**
- * admin/export_csv.php — CSV тайлан гаргах
- */
 require_once 'auth.php';
 requireAdmin();
 
@@ -16,7 +13,6 @@ header('Content-Type: text/csv; charset=UTF-8');
 header('Content-Disposition: attachment; filename="'.$filename.'"');
 header('Cache-Control: max-age=0');
 
-// UTF-8 BOM — Excel-д зөв харагдахад
 echo "\xEF\xBB\xBF";
 
 $out = fopen('php://output', 'w');

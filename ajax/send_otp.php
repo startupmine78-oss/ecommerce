@@ -1,5 +1,4 @@
 <?php
-// ajax/send_otp.php — OTP илгээх AJAX endpoint
 require_once '../db.php';
 require_once '../config/config.php';
 require_once '../auth/MailService.php';
@@ -75,14 +74,13 @@ if ($result['success']) {
         'success'    => true,
         'message'    => "OTP код {$email} хаяг руу илгээгдлээ.",
         'expires_in' => OTP_EXPIRE_MINUTES * 60,
-        'dev_code'   => $devMode ? $code : null  // production-д null буцаана
+        'dev_code'   => $devMode ? $code : null  
     ]);
 } else {
-    // SMTP тохируулаагүй бол dev mode-д коды харуулна
     echo json_encode([
         'success'  => true,
         'message'  => "⚠️ SMTP тохируулаагүй. Dev mode: код = <strong>$code</strong>",
-        'dev_code' => $code,  // SMTP тохируулаагүй үед туршихад
+        'dev_code' => $code,  
         'expires_in' => OTP_EXPIRE_MINUTES * 60
     ]);
 }

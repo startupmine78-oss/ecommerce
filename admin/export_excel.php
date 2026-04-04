@@ -1,9 +1,4 @@
 <?php
-/**
- * admin/export_excel.php
- * ShopMN — Excel тайлан гаргах
- * PhpSpreadsheet байхгүй үед XLS-compatible HTML fallback ашиглана
- */
 require_once 'auth.php';
 requireAdmin();
 
@@ -13,25 +8,18 @@ $dateTo   = sanitize($_GET['to']    ?? date('Y-m-d'));
 $dfEsc    = mysqli_real_escape_string($conn, $dateFrom);
 $dtEsc    = mysqli_real_escape_string($conn, $dateTo);
 
-// ── Try PhpSpreadsheet first ───────────────────────────────────
 $hasSS = @include_once __DIR__ . '/../vendor/autoload.php';
-// Only use it if Spreadsheet class exists (not just PHPMailer)
 if (!class_exists('PhpOffice\PhpSpreadsheet\Spreadsheet')) {
     $hasSS = false;
 }
 
 if ($hasSS) {
-    // ── PhpSpreadsheet path ─────────────────────────────────
-    // (production дээр composer require phpoffice/phpspreadsheet хийсний дараа ажиллана)
+
     buildWithSpreadsheet($conn, $sheet, $dfEsc, $dtEsc, $dateFrom, $dateTo);
 } else {
-    // ── Fallback: XLS-compatible XML ─────────────────────────
     buildXMLExcel($conn, $sheet, $dfEsc, $dtEsc, $dateFrom, $dateTo);
 }
 
-// ════════════════════════════════════════════════════════════════
-// FALLBACK: Excel XML (Excel 2003 XML format — opens in all Excel)
-// ════════════════════════════════════════════════════════════════
 function buildXMLExcel($conn, $sheet, $dfEsc, $dtEsc, $dateFrom, $dateTo) {
     $filename = "shopmn_report_{$sheet}_{$dateFrom}_{$dateTo}.xls";
     header('Content-Type: application/vnd.ms-excel; charset=UTF-8');
@@ -43,7 +31,6 @@ function buildXMLExcel($conn, $sheet, $dfEsc, $dtEsc, $dateFrom, $dateTo) {
          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
          xmlns:x="urn:schemas-microsoft-com:office:excel">' . "\n";
 
-    // Styles
     echo '<Styles>
 <Style ss:ID="hdr">
   <Font ss:Bold="1" ss:Color="#FFFFFF" ss:Size="11" ss:FontName="Arial"/>
@@ -127,7 +114,6 @@ function buildXMLExcel($conn, $sheet, $dfEsc, $dtEsc, $dateFrom, $dateTo) {
     echo '</Workbook>';
 }
 
-// ── Helper: XML cell ──
 function cell($val, $type='String', $style='d') {
     $val = htmlspecialchars((string)$val, ENT_XML1, 'UTF-8');
     if ($type === 'Number') {
@@ -143,7 +129,6 @@ function row(...$cells) {
     return "<Row>" . implode('', $cells) . "</Row>\n";
 }
 
-// ── Sheet 1: Revenue summary ──
 function writeRevenueSheet($conn, $dfEsc, $dtEsc, $dateFrom, $dateTo) {
     echo '<Worksheet ss:Name="Орлогын тайлан"><Table ss:DefaultColumnWidth="90">
 <Column ss:Width="80"/>
@@ -155,7 +140,6 @@ function writeRevenueSheet($conn, $dfEsc, $dtEsc, $dateFrom, $dateTo) {
     echo row(mcell("🛒  ShopMN — Орлогын тайлан  ({$dateFrom} — {$dateTo})", 4, 'title'));
     echo "<Row ss:Height=\"8\"></Row>\n";
 
-    // KPIs
     $kpi = mysqli_fetch_assoc(mysqli_query($conn,
         "SELECT COALESCE(SUM(total_amount),0) AS rev, COUNT(*) AS orders,
                 COALESCE(AVG(total_amount),0) AS avg_o,
@@ -180,7 +164,6 @@ function writeRevenueSheet($conn, $dfEsc, $dtEsc, $dateFrom, $dateTo) {
 
     echo "<Row ss:Height=\"8\"></Row>\n";
 
-    // Daily breakdown
     echo row(
         mcell("📅  Өдөр бүрийн орлого", 4, 'hdr')
     );
@@ -216,7 +199,6 @@ function writeRevenueSheet($conn, $dfEsc, $dtEsc, $dateFrom, $dateTo) {
     echo '</Table></Worksheet>' . "\n";
 }
 
-// ── Sheet 2: Orders ──
 function writeOrdersSheet($conn, $dfEsc, $dtEsc) {
     echo '<Worksheet ss:Name="Захиалгууд"><Table>
 <Column ss:Width="70"/>
@@ -278,7 +260,6 @@ function writeOrdersSheet($conn, $dfEsc, $dtEsc) {
     echo '</Table></Worksheet>' . "\n";
 }
 
-// ── Sheet 3: Products ──
 function writeProductsSheet($conn, $dfEsc, $dtEsc) {
     echo '<Worksheet ss:Name="Бүтээгдэхүүн"><Table>
 <Column ss:Width="30"/>
@@ -330,7 +311,6 @@ function writeProductsSheet($conn, $dfEsc, $dtEsc) {
     echo '</Table></Worksheet>' . "\n";
 }
 
-// ── Sheet 4: Tracking ──
 function writeTrackingSheet($conn, $dfEsc, $dtEsc) {
     echo '<Worksheet ss:Name="Tracking бүртгэл"><Table>
 <Column ss:Width="110"/>
@@ -394,9 +374,7 @@ function writeTrackingSheet($conn, $dfEsc, $dtEsc) {
     echo '</Table></Worksheet>' . "\n";
 }
 
-// ── PhpSpreadsheet path (if available) ──
 function buildWithSpreadsheet($conn, $sheet, $dfEsc, $dtEsc, $dateFrom, $dateTo) {
-    // Full implementation available when PhpSpreadsheet is installed
-    // Redirects to XML fallback for now
+
     buildXMLExcel($conn, $sheet, $dfEsc, $dtEsc, $dateFrom, $dateTo);
 }

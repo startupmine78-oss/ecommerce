@@ -27,7 +27,7 @@ const Toast = {
     }
 };
 
-// ─── LIVE SEARCH ─────────────────────────────
+// LIVE SEARCH 
 const LiveSearch = {
     input: null,
     dropdown: null,

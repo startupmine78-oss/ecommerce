@@ -1,5 +1,4 @@
 <?php
-// ajax/register.php
 require_once '../db.php';
 header('Content-Type: application/json');
 

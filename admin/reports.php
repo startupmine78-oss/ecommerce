@@ -3,7 +3,6 @@ require_once 'auth.php';
 requireAdmin();
 $pageTitle = 'Тайлан & Шинжилгээ';
 
-// ── DATE RANGE ──────────────────────────────────────────────
 $rangePreset = $_GET['range'] ?? '30';
 $dateFrom = $_GET['from'] ?? date('Y-m-d', strtotime("-{$rangePreset} days"));
 $dateTo   = $_GET['to']   ?? date('Y-m-d');
@@ -11,7 +10,6 @@ $dateTo   = $_GET['to']   ?? date('Y-m-d');
 $dfEsc = mysqli_real_escape_string($conn, $dateFrom);
 $dtEsc = mysqli_real_escape_string($conn, $dateTo);
 
-// ── REVENUE SUMMARY ─────────────────────────────────────────
 $revenue = mysqli_fetch_assoc(mysqli_query($conn,
     "SELECT
         COALESCE(SUM(total_amount),0)         AS total,
@@ -26,7 +24,6 @@ $revenue = mysqli_fetch_assoc(mysqli_query($conn,
      WHERE DATE(created_at) BETWEEN '$dfEsc' AND '$dtEsc'"
 ));
 
-// ── DAILY REVENUE (chart) ────────────────────────────────────
 $dailyRev = mysqli_query($conn,
     "SELECT DATE(created_at) as d,
             COALESCE(SUM(total_amount),0) as rev,
@@ -43,7 +40,6 @@ while ($dr = mysqli_fetch_assoc($dailyRev)) {
     $chartCnt[]  = (int)$dr['cnt'];
 }
 
-// ── TOP PRODUCTS ─────────────────────────────────────────────
 $topProds = mysqli_query($conn,
     "SELECT p.name, p.price, p.image_url, c.name AS cat,
             COUNT(oi.id) AS sold,
@@ -69,7 +65,6 @@ $catSales = mysqli_query($conn,
 );
 $catRows = []; while ($r = mysqli_fetch_assoc($catSales)) $catRows[] = $r;
 
-// ── PAYMENT METHODS ──────────────────────────────────────────
 $payments = mysqli_query($conn,
     "SELECT payment_method,
             COUNT(*) AS cnt,
@@ -81,7 +76,6 @@ $payments = mysqli_query($conn,
 $payRows = []; while ($r = mysqli_fetch_assoc($payments)) $payRows[] = $r;
 $totalPayAmt = array_sum(array_column($payRows, 'total')) ?: 1;
 
-// ── DELIVERY STATS ───────────────────────────────────────────
 $delivStats = mysqli_fetch_assoc(mysqli_query($conn,
     "SELECT
         COUNT(*) AS total,
@@ -94,7 +88,6 @@ $delivStats = mysqli_fetch_assoc(mysqli_query($conn,
 ));
 $delivTotal = max($delivStats['total'] ?? 1, 1);
 
-// ── USER STATS ───────────────────────────────────────────────
 $userStats = mysqli_fetch_assoc(mysqli_query($conn,
     "SELECT COUNT(*) AS new_users FROM users
      WHERE DATE(created_at) BETWEEN '$dfEsc' AND '$dtEsc'"

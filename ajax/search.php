@@ -1,5 +1,4 @@
 <?php
-// ajax/search.php - Live search endpoint
 require_once '../db.php';
 header('Content-Type: application/json');
 

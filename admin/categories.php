@@ -4,7 +4,6 @@ requireAdmin();
 $pageTitle = 'Ангилал удирдах';
 $msg = '';
 
-// ── SAVE ──
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_cat'])) {
     $id   = intval($_POST['id'] ?? 0);
     $name = sanitize($_POST['name']);
@@ -19,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_cat'])) {
     }
 }
 
-// ── DELETE ──
 if (isset($_GET['delete'])) {
     $did = intval($_GET['delete']);
     $cnt = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(*) c FROM products WHERE category_id=$did"))['c'];
@@ -87,7 +85,6 @@ include '_layout.php';
     </table>
 </div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="cat-modal">
 <div class="modal" style="max-width:480px">
     <div class="modal-header">

@@ -69,7 +69,6 @@ include '_layout.php';
 </div>
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px">
-<!-- Recent Orders -->
 <div class="table-card">
     <div class="table-header">
         <span class="table-title">🛒 Сүүлийн захиалгууд</span>
@@ -105,7 +104,6 @@ include '_layout.php';
     </table>
 </div>
 
-<!-- Category chart -->
 <div class="chart-wrap">
     <div class="chart-header">
         <span class="table-title">📊 Ангиллаар бараа</span>
@@ -120,7 +118,6 @@ include '_layout.php';
 </div>
 </div>
 
-<!-- Top products -->
 <div class="table-card">
     <div class="table-header">
         <span class="table-title">⭐ Шилдэг бүтээгдэхүүн</span>

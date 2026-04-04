@@ -1,5 +1,4 @@
 <?php
-// ajax/add_to_cart.php
 require_once '../db.php';
 
 header('Content-Type: application/json');

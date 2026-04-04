@@ -1,6 +1,4 @@
 <?php
-// admin/_layout.php — Shared admin layout header
-// auth.php аль хэдийн оруулагдсан байвал дахин оруулахгүй
 if (!function_exists('getCurrentAdmin')) {
     require_once __DIR__ . '/auth.php';
 }
@@ -15,11 +13,9 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-/* ── RESET & BASE ── */
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:#F1F5F9;color:#1E293B;min-height:100vh;display:flex}
 
-/* ── SIDEBAR ── */
 .sidebar{width:240px;background:linear-gradient(180deg,#1A1A2E 0%,#16213E 100%);min-height:100vh;position:fixed;top:0;left:0;z-index:100;display:flex;flex-direction:column;transition:transform .3s}
 .sidebar-logo{padding:24px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
 .sidebar-logo h2{font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:900;color:white}
@@ -37,7 +33,6 @@ body{font-family:'DM Sans',sans-serif;background:#F1F5F9;color:#1E293B;min-heigh
 .sidebar-footer a{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.5);text-decoration:none;font-size:.82rem;padding:8px 0}
 .sidebar-footer a:hover{color:white}
 
-/* ── MAIN ── */
 .main{margin-left:240px;flex:1;display:flex;flex-direction:column;min-height:100vh}
 .topbar{background:white;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #E2E8F0;position:sticky;top:0;z-index:50}
 .topbar-left{display:flex;align-items:center;gap:12px}
@@ -48,7 +43,6 @@ body{font-family:'DM Sans',sans-serif;background:#F1F5F9;color:#1E293B;min-heigh
 .admin-avatar{width:34px;height:34px;background:linear-gradient(135deg,#FF6B35,#e85d2f);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:.85rem;cursor:pointer}
 .content{padding:24px 28px;flex:1}
 
-/* ── STAT CARDS ── */
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:24px}
 .stat-card{background:white;border-radius:14px;padding:20px;box-shadow:0 1px 8px rgba(0,0,0,.06);display:flex;flex-direction:column;gap:8px;border-left:4px solid transparent}
 .stat-card.orange{border-left-color:#FF6B35}
@@ -70,7 +64,6 @@ body{font-family:'DM Sans',sans-serif;background:#F1F5F9;color:#1E293B;min-heigh
 .stat-change.up{color:#10B981}
 .stat-change.down{color:#EF4444}
 
-/* ── TABLE ── */
 .table-card{background:white;border-radius:14px;box-shadow:0 1px 8px rgba(0,0,0,.06);overflow:hidden}
 .table-header{padding:18px 22px;border-bottom:1px solid #F1F5F9;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .table-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;color:#1E293B}
@@ -88,7 +81,6 @@ tr:hover td{background:#FAFBFF}
 .product-name{font-weight:600;font-size:.875rem;color:#1E293B}
 .product-cat{font-size:.75rem;color:#94A3B8;margin-top:1px}
 
-/* ── BADGE / STATUS ── */
 .badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:700}
 .badge-success{background:#D1FAE5;color:#065F46}
 .badge-warning{background:#FEF3C7;color:#92400E}
@@ -97,7 +89,6 @@ tr:hover td{background:#FAFBFF}
 .badge-gray   {background:#F1F5F9;color:#475569}
 .badge-orange {background:#FFF5F0;color:#C2410C}
 
-/* ── BUTTONS ── */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:.875rem;font-weight:600;cursor:pointer;border:none;text-decoration:none;transition:all .15s;font-family:'DM Sans',sans-serif}
 .btn-primary{background:#FF6B35;color:white}
 .btn-primary:hover{background:#e85d2f}
@@ -110,7 +101,6 @@ tr:hover td{background:#FAFBFF}
 .btn-icon{padding:6px 8px;background:#F1F5F9;color:#64748B;border-radius:6px;border:none;cursor:pointer;transition:background .15s}
 .btn-icon:hover{background:#E2E8F0}
 
-/* ── FORM ── */
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .form-group{display:flex;flex-direction:column;gap:6px}
 .form-group.full{grid-column:1/-1}
@@ -120,7 +110,6 @@ tr:hover td{background:#FAFBFF}
 select.form-control{cursor:pointer}
 .form-hint{font-size:.75rem;color:#94A3B8}
 
-/* ── MODAL ── */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
 .modal-overlay.show{display:flex}
 .modal{background:white;border-radius:16px;padding:28px;width:90%;max-width:600px;max-height:90vh;overflow-y:auto;box-shadow:0 25px 60px rgba(0,0,0,.3)}
@@ -130,13 +119,11 @@ select.form-control{cursor:pointer}
 .modal-close:hover{color:#1E293B}
 .modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid #F1F5F9}
 
-/* ── PAGINATION ── */
 .pagination{display:flex;align-items:center;gap:6px;padding:16px 22px;border-top:1px solid #F1F5F9}
 .page-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:6px;border:1.5px solid #E2E8F0;color:#475569;text-decoration:none;font-size:.82rem;font-weight:600;transition:all .15s}
 .page-btn:hover,.page-btn.active{background:#FF6B35;border-color:#FF6B35;color:white}
 .page-info{color:#94A3B8;font-size:.82rem;margin-left:auto}
 
-/* ── CHART PLACEHOLDER ── */
 .chart-wrap{background:white;border-radius:14px;padding:22px;box-shadow:0 1px 8px rgba(0,0,0,.06)}
 .chart-header{display:flex;justify-content:space-between;margin-bottom:16px}
 .chart-title{font-family:'Outfit',sans-serif;font-weight:700}
@@ -146,7 +133,6 @@ select.form-control{cursor:pointer}
 .chart-bar-fill{height:100%;background:linear-gradient(90deg,#FF6B35,#ffaa88);border-radius:6px;transition:width 1s ease}
 .chart-bar-val{width:70px;font-size:.78rem;font-weight:600;color:#1E293B}
 
-/* ── MISC ── */
 .stock-low{color:#EF4444;font-weight:700}
 .stock-ok {color:#10B981;font-weight:600}
 .stock-med{color:#F59E0B;font-weight:600}
@@ -169,7 +155,6 @@ select.form-control{cursor:pointer}
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
         <h2>Shop<span>MN</span></h2>
@@ -204,14 +189,11 @@ select.form-control{cursor:pointer}
             <a href="users.php" class="nav-item <?= $currentPage==='users'?'active':'' ?>">
                 <i class="icon fas fa-users"></i> Хэрэглэгчид
             </a>
-            <!-- _layout.php-д доорх хэсгийг нэм -->
-<!-- "Борлуулалт" nav-group дотор Orders, Users-ийн өмнө эсвэл дараа нэм: -->
 
 <a href="reports.php" class="nav-item <?= $currentPage==='reports'?'active':'' ?>">
     <i class="icon fas fa-chart-bar"></i> Тайлан & Шинжилгээ
 </a>
 
-<!-- Мөн "Систем" бүлэгт export холбоос нэм: -->
 <a href="export_excel.php?sheet=full" class="nav-item">
     <i class="icon fas fa-file-excel" style="color:#217346"></i> Excel гаргах
 </a>
@@ -231,7 +213,6 @@ select.form-control{cursor:pointer}
     </div>
 </aside>
 
-<!-- TOPBAR -->
 <div class="main">
 <header class="topbar">
     <div class="topbar-left">

@@ -1,5 +1,4 @@
 <?php
-// ajax/confirm_received.php — Хүргэлт хүлээн авсан баталгаажуулалт
 require_once '../db.php';
 header('Content-Type: application/json');
 

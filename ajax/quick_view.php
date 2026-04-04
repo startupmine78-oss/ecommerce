@@ -1,5 +1,4 @@
 <?php
-// ajax/quick_view.php
 require_once '../db.php';
 header('Content-Type: application/json');
 
